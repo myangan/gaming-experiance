@@ -1,29 +1,32 @@
 .App {
   text-align: center;
-  padding: 10px;
-  min-height: 100vh;
 
+  min-height: 100vh;
+  background: #833ab4;
+  background: -webkit-linear-gradient(to bottom, #fcb045, #fd1d1d, #833ab4);
+  background: linear-gradient(to bottom, #fcb045, #fd1d1d, #833ab4);
   display: grid;
-  grid-template-columns: 70% 30%;
+  grid-template-columns: 10% 50% 40%;
   grid-template-rows: min-content min-content auto;
   grid-template-areas:
-    "header header"
-    " drop_down user"
-    " main main";
+    "header header header"
+    " drop_down mid user"
+    " news main main";
 }
 .Header {
-  border: orange solid 1px;
   grid-area: header;
 }
-
-.User {
-  grid-area: user;
-  border: green solid 1px;
+.mid {
+  background: #30e8bf;
+  background: -webkit-linear-gradient(to top, #ff8235, #30e8bf);
+  background: linear-gradient(to top, #ff8235, #30e8bf);
+  grid-area: mid;
 }
+
 .Main {
   grid-area: main;
-  max-height: 100vh;
-  border: blue solid 1px;
+  max-height: 80vh;
+
   overflow: scroll;
   display: flex;
   flex-wrap: wrap;
@@ -34,16 +37,20 @@
 }
 
 .dropbtn {
-  background-color: #0f8a5f;
-  color: white;
-  padding: 16px;
+  background-color: inherit;
+  color: black;
+  padding: 10px;
   font-size: 16px;
   border: none;
 }
 
 .dropdown {
+  background: #30e8bf;
+  background: -webkit-linear-gradient(to top, #ff8235, #30e8bf);
+  background: linear-gradient(to top, #ff8235, #30e8bf);
+
   grid-area: drop_down;
-  border: black solid 2px;
+  text-align: center;
   position: relative;
   display: inline-block;
 }
@@ -51,8 +58,8 @@
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: #f1f1f1;
-  min-width: 160px;
+  background-color: inherit;
+  min-width: 100px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
@@ -65,7 +72,9 @@
 }
 
 .dropdown-content a:hover {
-  background-color: #ddd;
+  background: #30e8bf;
+  background: -webkit-linear-gradient(to top, #ff8235, #30e8bf);
+  background: linear-gradient(to top, #ff8235, #30e8bf);
 }
 
 .dropdown:hover .dropdown-content {
@@ -73,15 +82,18 @@
 }
 
 .dropdown:hover .dropbtn {
-  background-color: #cc6211;
+  background: #30e8bf;
+  background: -webkit-linear-gradient(to top, #ff8235, #30e8bf);
+  background: linear-gradient(to top, #ff8235, #30e8bf);
 }
 .reviewCard {
   margin: 10px;
   padding: 5px;
   border-radius: 10px;
   border: yellow 2px solid;
-  max-width: 25%;
-  max-height: 30%;
+  object-fit: cover;
+  max-width: 100%;
+  max-height: 50%;
   min-width: 500px;
   display: grid;
   grid-template: 80% 20% / 70% 30%;
@@ -95,6 +107,7 @@
   width: 100%;
   max-height: 100%;
 }
+
 .reviewCardName {
   grid-area: reviewName;
   text-align: center;
@@ -106,4 +119,78 @@
 .reviewVote {
   grid-area: reviewVotes;
   text-align: center;
+}
+
+.Single {
+  grid-area: main;
+  max-height: 80vh;
+  overflow: scroll;
+  display: grid;
+  grid-template: 40% 40% 20%/60% 40%;
+  grid-template-areas:
+    "Picture news"
+    "Picture comment"
+    "comments comments";
+}
+.SinglePicture {
+  border-radius: 15px;
+  object-fit: cover;
+  max-width: 100%;
+  max-height: 100%;
+  grid-area: Picture;
+}
+.SingleInfo {
+  text-align: justify;
+  grid-area: news;
+}
+.commentArea {
+  grid-area: comment;
+  object-fit: cover;
+  display: flex;
+}
+.CommentInput {
+  border-radius: 15px;
+  background-color: inherit;
+  backdrop-filter: blur(6px);
+  object-fit: cover;
+  max-width: 80%;
+  max-height: 40%;
+}
+.commentBtn {
+  border-radius: 5px;
+  max-width: 80%;
+  max-height: 40%;
+}
+
+.CommentsBox {
+  grid-area: comments;
+  border: black solid 2px;
+  min-width: 100%;
+}
+.User {
+  grid-area: user;
+  background: #30e8bf;
+  background: -webkit-linear-gradient(to top, #ff8235, #30e8bf);
+  background: linear-gradient(to top, #ff8235, #30e8bf);
+
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+  grid-template-rows: min-content;
+  grid-template-areas: "pic username name btn";
+}
+.UserAvatar {
+  object-fit: cover;
+  width: 100%;
+  max-height: 100%;
+  border-radius: 50%;
+  grid-area: pic;
+}
+.Name {
+  grid-area: name;
+}
+.userName {
+  grid-area: username;
+}
+.SignOut {
+  grid-area: btn;
 }

@@ -11,11 +11,15 @@ export default function NavBar() {
     <nav className="dropdown">
       <button className="dropbtn">Categories</button>
       <div className="dropdown-content">
+        <Link key="noCategory" to="/reviews" className="Links">
+          {" "}
+          All reviews{" "}
+        </Link>
         {categories.map((category) => {
           return (
             <Link
               key={category.slug}
-              to={`/reviews?categories=${category.slug}`}
+              to={`/reviews?category=${category.slug}`}
               className="Links"
             >
               {category.slug}

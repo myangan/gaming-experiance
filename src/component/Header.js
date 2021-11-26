@@ -1,7 +1,7 @@
 export default function Header() {
   return (
     <header className="Header">
-      <h1>Leraning-Experiance</h1>
+      <h1>Learning-Experience</h1>
     </header>
   );
 }

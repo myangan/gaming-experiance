@@ -2,23 +2,39 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Header from "./component/Header";
 import Main from "./component/Main";
+import Mid from "./component/Mid";
 import NavBar from "./component/Nav";
 import Reviews from "./component/Reviews";
+import SignUp from "./component/SignUp";
+import SingleReview from "./component/singleReviews";
 import User from "./component/User";
+import { UserProvider } from "./context/userContext";
 
 function App() {
   return (
-    <div className="App">
-      <BrowserRouter>
-        <Header />
-        <NavBar />
-        <User />
-        <Routes>
-          <Route path="/" element={<Main />}></Route>
-          <Route path="/reviews" element={<Reviews />}></Route>
-        </Routes>
-      </BrowserRouter>
-    </div>
+    <UserProvider>
+      <div className="App">
+        <BrowserRouter>
+          <Header />
+          <NavBar />
+          <User />
+          <Mid />
+          <Routes>
+            <Route path="/" element={<Main />}></Route>
+            <Route path="/reviews" element={<Reviews />}></Route>
+            <Route
+              path="/reviews/:reviews_id"
+              element={<SingleReview />}
+            ></Route>
+            <Route
+              path="/reviews/:reviews_id/comments"
+              element={<SingleReview />}
+            ></Route>
+            <Route path="/users/signup" element={<SignUp />}></Route>
+          </Routes>
+        </BrowserRouter>
+      </div>
+    </UserProvider>
   );
 }
 
