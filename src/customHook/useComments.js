@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { deleteComment, postComments } from "../utils/utils";
+import { deleteComment, postComments, updateVote } from "../utils/utils";
 
 const useUpdateComments = ({ reviews_id, comment, pressed }) => {
   const [updateComment, setUpdateComment] = useState({});
@@ -19,15 +19,30 @@ const useUpdateComments = ({ reviews_id, comment, pressed }) => {
   return { updateComment, error, setUpdateComment };
 };
 
-const useDeleteCom = (commentId) => {
+const useDeleteCom = ({ delComment, deleteBtnPressed }) => {
   const [del, setDel] = useState();
   useEffect(() => {
-    deleteComment(commentId)
-      .then((res) => {
-        setDel(res);
-      })
-      .catch((err) => console.log(err));
-  }, [commentId]);
-  return { del };
+    if (deleteBtnPressed) {
+      deleteComment(delComment)
+        .then((res) => {
+          setDel("done");
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [delComment]);
+  return { del, setDel };
 };
-export { useUpdateComments, useDeleteCom };
+
+const useVoteComment = ({ voteCommentId, voteBtnPressed }) => {
+  const [vote, setVote] = useState();
+  useEffect(() => {
+    if (voteBtnPressed) {
+      updateVote(voteCommentId)
+        .then((res) => setVote(res))
+        .catch((err) => console.log(err));
+      //
+    }
+  }, [voteCommentId]);
+  return {};
+};
+export { useUpdateComments, useDeleteCom, useVoteComment };

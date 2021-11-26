@@ -35,3 +35,10 @@ export const postComments = ({ reviews_id, comment }) => {
 export const deleteComment = (commentId) => {
   return url.delete(`/comments/${commentId}`).then((res) => res.data);
 };
+
+export const updateVote = (commentId) => {
+  return url.patch(`/comments/${commentId}`, 1).then((res) => {
+    console.log(res.data.votes);
+    return res.data;
+  });
+};

@@ -1,7 +1,11 @@
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { UserContext } from "../context/userContext";
-import { useDeleteCom, useUpdateComments } from "../customHook/useComments";
+import {
+  useDeleteCom,
+  useUpdateComments,
+  useVoteComment,
+} from "../customHook/useComments";
 import { useComments, useReviews } from "../customHook/useReviews";
 
 export default function SingleReview() {
@@ -32,23 +36,34 @@ export default function SingleReview() {
     setPressed(true);
   }
   // delete comment
-  const [deleteBtnPressed, setDeleteBtnPressed] = useState("");
-  const { del } = useDeleteCom(deleteBtnPressed);
-
+  const [deleteBtnPressed, setDeleteBtnPressed] = useState(false);
+  const [delComment, setDelComment] = useState();
+  const { del, setDel } = useDeleteCom({ delComment, deleteBtnPressed });
   useEffect(() => {
-    console.log(deleteBtnPressed);
-    if (deleteBtnPressed !== "") {
-      const newArr = comments.filter((x) => x.comment_id !== deleteBtnPressed);
-      setDeleteBtnPressed("");
+    if (del) {
+      setDel();
+      const newArr = comments.filter((x) => x.comment_id !== +delComment);
+      setDeleteBtnPressed(false);
       setComments(newArr);
     }
   }, [del]);
   function handleDelete(e) {
     e.preventDefault();
-    setDeleteBtnPressed(e.target.value);
+    setDelComment(e.target.value);
+    setDeleteBtnPressed(true);
   }
   // voting comments
-  function handleVote() {}
+  const [voteCommentId, setVoteCommentId] = useState();
+  const [voteBtnPressed, setVoteBtnPressed] = useState(false);
+  const { vote } = useVoteComment({ voteCommentId, voteBtnPressed });
+  console.log(vote);
+  console.log(voteCommentId, voteBtnPressed);
+  useEffect(() => {});
+  function handleVote(e) {
+    e.preventDefault();
+    setVoteCommentId(e.target.value);
+    setVoteBtnPressed(true);
+  }
 
   if (loading) return <p>Loading...</p>;
   if (err) return <p>error code: {err}</p>;
@@ -111,6 +126,7 @@ export default function SingleReview() {
               <p className="VoteComment">{comment.votes}</p>
               <button
                 className="VoteCommentBtn"
+                value={comment.comment_id}
                 onClick={(e) => {
                   handleVote(e);
                 }}

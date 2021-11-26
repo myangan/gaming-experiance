@@ -10,7 +10,7 @@ export const UserProvider = ({ children }) => {
     avatar_url:
       "https://vignette.wikia.nocookie.net/mrmen/images/7/7e/MrMen-Bump.png/revision/latest?cb=20180123225553",
   });
-  console.log(user);
+
   const login = (username) => {
     return getUserDetails(username).then((user) => {
       if (user) setUser(user);
