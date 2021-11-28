@@ -40,9 +40,8 @@ const useVoteComment = ({ voteCommentId, voteBtnPressed }) => {
       updateVote(voteCommentId)
         .then((res) => setVote(res))
         .catch((err) => console.log(err));
-      //
     }
   }, [voteCommentId]);
-  return {};
+  return { vote, setVote };
 };
 export { useUpdateComments, useDeleteCom, useVoteComment };

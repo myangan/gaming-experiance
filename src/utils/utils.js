@@ -17,7 +17,10 @@ export const getReviews = ({ categories, reviews_id }) => {
 };
 
 export const getComments = ({ reviews_id }) => {
-  return url.get(`/reviews/${reviews_id}/comments`).then((res) => res.data);
+  return url.get(`/reviews/${reviews_id}/comments`).then((res) => {
+    console.log(res.data);
+    return res.data;
+  });
 };
 
 export const getUsers = () => {
@@ -36,9 +39,8 @@ export const deleteComment = (commentId) => {
   return url.delete(`/comments/${commentId}`).then((res) => res.data);
 };
 
-export const updateVote = (commentId) => {
-  return url.patch(`/comments/${commentId}`, 1).then((res) => {
-    console.log(res.data.votes);
+export const updateVote = (comment_id, inc_votes = 1) => {
+  return url.patch(`/comments/${comment_id}`, { inc_votes }).then((res) => {
     return res.data;
   });
 };

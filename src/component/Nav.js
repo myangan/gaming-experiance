@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getCategories } from "../utils/utils";
+import User from "./User";
 export default function NavBar() {
   const [categories, setCategories] = useState([]);
   useEffect(
@@ -8,25 +9,31 @@ export default function NavBar() {
     []
   );
   return (
-    <nav className="dropdown">
-      <button className="dropbtn">Categories</button>
-      <div className="dropdown-content">
-        <Link key="noCategory" to="/reviews" className="Links">
-          {" "}
-          All reviews{" "}
+    <ul className="NavArea">
+      <li>
+        <Link to="/">Home</Link>
+      </li>
+      <li className="dropdown">
+        <Link to="javascript:void(0)" class="dropbtn">
+          Categories
         </Link>
-        {categories.map((category) => {
-          return (
-            <Link
-              key={category.slug}
-              to={`/reviews?category=${category.slug}`}
-              className="Links"
-            >
-              {category.slug}
-            </Link>
-          );
-        })}
+        <div className="dropdown-content">
+          {categories.map((category) => {
+            return (
+              <Link
+                key={category.slug}
+                to={`/reviews?category=${category.slug}`}
+                className="Links"
+              >
+                {category.slug}
+              </Link>
+            );
+          })}
+        </div>
+      </li>
+      <div className="UserSpace">
+        <User />
       </div>
-    </nav>
+    </ul>
   );
 }

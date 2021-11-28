@@ -11,14 +11,16 @@ export default function Main() {
           key={review.review_id}
           className="reviewCard"
         >
-          <h3 className="reviewCardName">{review.title}</h3>
           <img
             src={`${review.review_img_url}`}
             alt="reviewImg"
             className="reviewCardImg"
           />
-          <p className="reviewDesigner">Designer: {review.designer}</p>
-          <p className="reviewVote">Vote: {review.votes}</p>
+          <div className="reviewsInfo">
+            <p>Title: {review.title}</p>
+            <p>Designer: {review.designer}</p>
+            <p>Vote: {review.votes}</p>
+          </div>
         </Link>
       ))}
     </div>

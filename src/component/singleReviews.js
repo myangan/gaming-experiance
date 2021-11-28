@@ -10,7 +10,7 @@ import { useComments, useReviews } from "../customHook/useReviews";
 
 export default function SingleReview() {
   const { reviews_id } = useParams();
-  window.history.pushState(null, null, `/reviews/${reviews_id}/comments`);
+  //window.history.pushState(null, null, `/reviews/${reviews_id}/comments`);
   const { reviews, loading, err } = useReviews({ reviews_id });
   const { comments, setComments } = useComments({ reviews_id });
   const [commentInput, setCommentInput] = useState("");
@@ -55,16 +55,22 @@ export default function SingleReview() {
   // voting comments
   const [voteCommentId, setVoteCommentId] = useState();
   const [voteBtnPressed, setVoteBtnPressed] = useState(false);
-  const { vote } = useVoteComment({ voteCommentId, voteBtnPressed });
+  const { vote, setVote } = useVoteComment({ voteCommentId, voteBtnPressed });
   console.log(vote);
   console.log(voteCommentId, voteBtnPressed);
-  useEffect(() => {});
+  useEffect(() => {
+    if (vote) {
+      setVote();
+      setVoteBtnPressed(false);
+      //setVoteCommentId
+    }
+  }, [vote]);
   function handleVote(e) {
     e.preventDefault();
     setVoteCommentId(e.target.value);
     setVoteBtnPressed(true);
   }
-
+  console.log(comments);
   if (loading) return <p>Loading...</p>;
   if (err) return <p>error code: {err}</p>;
   if (error) return <p>error code: {error}</p>;
@@ -74,15 +80,14 @@ export default function SingleReview() {
         src={`${reviews.review_img_url}`}
         alt="reviewImg"
         className="SinglePicture"
-      />
-      <p className="SingleInfo">{reviews.reviews_id}</p>
-      <p className="SingleInfo">{reviews.title}</p>
-      <p className="SingleInfo">{reviews.designer} </p>
-      <p className="SingleInfo">{reviews.votes}</p>
-      <p className="SingleInfo">{reviews.category}</p>
-      <p className="SingleInfo">{reviews.comment_count}</p>
-      <p className="SingleInfo">{reviews.crated_at}</p>
-      <p className="SingleInfo">{reviews.owner}</p>
+      />{" "}
+      <div className="SingleReviewsInfo">
+        {Object.keys(reviews).map((x) => (
+          <p className="SingleInfo">
+            {x}: {reviews[x]}
+          </p>
+        ))}
+      </div>
       <div className="commentArea">
         <textarea
           cols="40"
@@ -105,15 +110,19 @@ export default function SingleReview() {
           Comment
         </button>
       </div>
-
       <div>
         {comments.length === 0 ? (
           <div></div>
         ) : (
           comments.map((comment) => (
             <div key={comment.comment_id} className="CommentsBox">
-              <p className="CommentBody">Comment: {comment.body}</p>
-              <p className="CommentsDesigner">Designer:{comment.designer}</p>
+              <div>
+                {Object.keys(comment).map((x) => (
+                  <p>
+                    {x}: {comment[x]}
+                  </p>
+                ))}
+              </div>
               <button
                 className="DeleteComment"
                 value={comment.comment_id}
@@ -123,7 +132,6 @@ export default function SingleReview() {
               >
                 delete
               </button>
-              <p className="VoteComment">{comment.votes}</p>
               <button
                 className="VoteCommentBtn"
                 value={comment.comment_id}

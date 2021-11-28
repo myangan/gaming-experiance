@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Header from "./component/Header";
 import Main from "./component/Main";
-import Mid from "./component/Mid";
+
 import NavBar from "./component/Nav";
 import Reviews from "./component/Reviews";
 import SignUp from "./component/SignUp";
@@ -17,8 +17,7 @@ function App() {
         <BrowserRouter>
           <Header />
           <NavBar />
-          <User />
-          <Mid />
+
           <Routes>
             <Route path="/" element={<Main />}></Route>
             <Route path="/reviews" element={<Reviews />}></Route>
