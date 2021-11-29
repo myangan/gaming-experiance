@@ -26,13 +26,24 @@ export default function User() {
       <div className="User">
         <form action="/">
           <label for="user">Users</label>
-          <select id="user" name="username">
+          <select
+            id="user"
+            name="username"
+            onChange={(e) => setInput(e.target.value)}
+          >
             {users.map((x) => (
               <option value={x.username} key={x.username}>
                 {x.username}
               </option>
             ))}
           </select>
+          <button
+            onClick={(event) => {
+              handleSubmit(event);
+            }}
+          >
+            sign in
+          </button>
         </form>
 
         <input
