@@ -1,15 +1,15 @@
-import React, { useState } from "react";
-import { getUserDetails } from "../utils/utils";
+import React, { useEffect, useState } from "react";
+import { getUserDetails, getUsers } from "../utils/utils";
 
 export const UserContext = React.createContext();
 
 export const UserProvider = ({ children }) => {
-  const [user, setUser] = useState({
-    username: "weegembump",
-    name: "Gemma Bump",
-    avatar_url:
-      "https://vignette.wikia.nocookie.net/mrmen/images/7/7e/MrMen-Bump.png/revision/latest?cb=20180123225553",
-  });
+  const [user, setUser] = useState({});
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    getUsers().then((users) => setUsers(users));
+  }, []);
 
   const login = (username) => {
     return getUserDetails(username).then((user) => {
@@ -19,7 +19,7 @@ export const UserProvider = ({ children }) => {
   };
 
   return (
-    <UserContext.Provider value={{ user, setUser, login }}>
+    <UserContext.Provider value={{ user, setUser, login, users }}>
       {children}
     </UserContext.Provider>
   );

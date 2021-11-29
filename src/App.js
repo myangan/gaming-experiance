@@ -2,12 +2,10 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Header from "./component/Header";
 import Main from "./component/Main";
-
 import NavBar from "./component/Nav";
 import Reviews from "./component/Reviews";
 import SignUp from "./component/SignUp";
 import SingleReview from "./component/singleReviews";
-import User from "./component/User";
 import { UserProvider } from "./context/userContext";
 
 function App() {
@@ -17,7 +15,6 @@ function App() {
         <BrowserRouter>
           <Header />
           <NavBar />
-
           <Routes>
             <Route path="/" element={<Main />}></Route>
             <Route path="/reviews" element={<Reviews />}></Route>

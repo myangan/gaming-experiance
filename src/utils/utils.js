@@ -18,19 +18,17 @@ export const getReviews = ({ categories, reviews_id }) => {
 
 export const getComments = ({ reviews_id }) => {
   return url.get(`/reviews/${reviews_id}/comments`).then((res) => {
-    console.log(res.data);
     return res.data;
   });
 };
 
 export const getUsers = () => {
-  return url.get(`/users`).then((res) => res.data);
+  return url.get(`/users`).then((res) => res.data.usernames);
 };
 export const getUserDetails = (user) => {
   return url.get(`/users/${user}`).then((res) => res.data.usernames[0]);
 };
 export const postComments = ({ reviews_id, comment }) => {
-  console.log(reviews_id, comment);
   return url
     .post(`/reviews/${reviews_id}/comments`, comment)
     .then((res) => res.data);

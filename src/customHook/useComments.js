@@ -34,6 +34,7 @@ const useDeleteCom = ({ delComment, deleteBtnPressed }) => {
 };
 
 const useVoteComment = ({ voteCommentId, voteBtnPressed }) => {
+  const [initialVote, setInitialVote] = useState(0);
   const [vote, setVote] = useState();
   useEffect(() => {
     if (voteBtnPressed) {
@@ -41,7 +42,8 @@ const useVoteComment = ({ voteCommentId, voteBtnPressed }) => {
         .then((res) => setVote(res))
         .catch((err) => console.log(err));
     }
-  }, [voteCommentId]);
-  return { vote, setVote };
+  }, [voteCommentId, voteBtnPressed]);
+
+  return { vote, setVote, initialVote, setInitialVote };
 };
 export { useUpdateComments, useDeleteCom, useVoteComment };

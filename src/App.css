@@ -35,7 +35,7 @@
 .SignOut {
   margin-top: 10%;
   border-radius: 15px;
-  background: inherit;
+  background: #b0dab9;
 }
 
 .Main {
@@ -72,9 +72,12 @@
 .reviewsInfo {
   grid-area: reviewName;
   text-align: left;
+  padding-left: 10px;
+  overflow: scroll;
 }
 
 .Single {
+  padding: 10px;
   grid-area: main;
   max-height: 80vh;
   overflow: scroll;
@@ -85,6 +88,7 @@
     "Picture comment"
     "comments comments";
   justify-items: stretch;
+  text-align: center;
 }
 .SinglePicture {
   border-radius: 15px;
@@ -102,6 +106,7 @@
   grid-area: news;
 }
 .commentArea {
+  padding-left: 10px;
   grid-area: comment;
   object-fit: cover;
   display: flex;
@@ -110,14 +115,16 @@
   border-radius: 10px;
 }
 .commentBtn {
-  border-radius: 5px;
+  border-radius: 10px;
+  margin-left: 5px;
 }
 
 .CommentsBox {
-  justify-content: stretch;
-  grid-area: comments;
-  border: black solid 2px;
-  min-width: 100%;
+  text-align: center;
+  border-radius: 0% 15px 15px 15px;
+  border: yellow solid 2px;
+  min-width: 50%;
+  margin: 2%;
 }
 ul {
   list-style-type: none;
@@ -177,4 +184,26 @@ li.dropdown {
 
 .UserSpace {
   float: right;
+}
+.signUp {
+  color: aqua;
+  padding: 8px;
+}
+.CommentBoxArea {
+  grid-area: comments;
+  overflow: visible;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+  flex-wrap: nowrap;
+}
+.warning {
+  color: red;
+}
+.CommentBoxArea fieldset {
+  border-radius: inherit;
+}
+.Name {
+  color: #b0dab9;
 }

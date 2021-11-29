@@ -10,11 +10,11 @@ import { useComments, useReviews } from "../customHook/useReviews";
 
 export default function SingleReview() {
   const { reviews_id } = useParams();
-  //window.history.pushState(null, null, `/reviews/${reviews_id}/comments`);
+
   const { reviews, loading, err } = useReviews({ reviews_id });
   const { comments, setComments } = useComments({ reviews_id });
   const [commentInput, setCommentInput] = useState("");
-  const { user } = useContext(UserContext);
+  const { user, users } = useContext(UserContext);
 
   // update comment
   const [pressed, setPressed] = useState(false);
@@ -39,6 +39,7 @@ export default function SingleReview() {
   const [deleteBtnPressed, setDeleteBtnPressed] = useState(false);
   const [delComment, setDelComment] = useState();
   const { del, setDel } = useDeleteCom({ delComment, deleteBtnPressed });
+  const [invalidDeleteRequest, setInvalidDeleteRequest] = useState(false);
   useEffect(() => {
     if (del) {
       setDel();
@@ -52,25 +53,30 @@ export default function SingleReview() {
     setDelComment(e.target.value);
     setDeleteBtnPressed(true);
   }
+
   // voting comments
+
   const [voteCommentId, setVoteCommentId] = useState();
   const [voteBtnPressed, setVoteBtnPressed] = useState(false);
-  const { vote, setVote } = useVoteComment({ voteCommentId, voteBtnPressed });
-  console.log(vote);
-  console.log(voteCommentId, voteBtnPressed);
+  const { vote, setVote, initialVote, setInitialVote } = useVoteComment({
+    voteCommentId,
+    voteBtnPressed,
+  });
+
   useEffect(() => {
     if (vote) {
       setVote();
       setVoteBtnPressed(false);
-      //setVoteCommentId
     }
-  }, [vote]);
+  }, [setVote, vote, voteBtnPressed, initialVote, setInitialVote]);
   function handleVote(e) {
     e.preventDefault();
+    setInitialVote(initialVote + 1);
     setVoteCommentId(e.target.value);
     setVoteBtnPressed(true);
+    setVote();
   }
-  console.log(comments);
+
   if (loading) return <p>Loading...</p>;
   if (err) return <p>error code: {err}</p>;
   if (error) return <p>error code: {error}</p>;
@@ -82,11 +88,12 @@ export default function SingleReview() {
         className="SinglePicture"
       />{" "}
       <div className="SingleReviewsInfo">
-        {Object.keys(reviews).map((x) => (
-          <p className="SingleInfo">
-            {x}: {reviews[x]}
-          </p>
-        ))}
+        <h3>{reviews.title}</h3>
+        <p className="SingleInfo">Designer: {reviews.designer}</p>
+        <p className="SingleInfo">Category: {reviews.category}</p>
+        <p className="SingleInfo">Owner: {reviews.owner}</p>
+        <p className="SingleInfo">Created at: {reviews.created_at}</p>
+        <p className="SingleInfo">Comment count: {reviews.comment_count}</p>
       </div>
       <div className="commentArea">
         <textarea
@@ -110,24 +117,34 @@ export default function SingleReview() {
           Comment
         </button>
       </div>
-      <div>
+      <div className="CommentBoxArea">
         {comments.length === 0 ? (
           <div></div>
         ) : (
           comments.map((comment) => (
             <div key={comment.comment_id} className="CommentsBox">
-              <div>
-                {Object.keys(comment).map((x) => (
-                  <p>
-                    {x}: {comment[x]}
-                  </p>
-                ))}
-              </div>
+              <h3>Comment: {comment.body}</h3>
+              <p>Author: {comment.author}</p>
+              <img
+                src={`${
+                  users.filter((x) => x.username === comment.author)[0]
+                    .avatar_url
+                }`}
+                alt="userAvatar"
+                className="UserAvatar"
+              />
+              <p>Vote: {comment.votes + initialVote}</p>
+              <p>
+                comment id:{comment.comment_id} is created at{" "}
+                {comment.created_at}
+              </p>
+
               <button
                 className="DeleteComment"
                 value={comment.comment_id}
                 onClick={(e) => {
-                  handleDelete(e);
+                  if (comment.author === user.username) handleDelete(e);
+                  else setInvalidDeleteRequest(true);
                 }}
               >
                 delete
@@ -141,6 +158,13 @@ export default function SingleReview() {
               >
                 Vote
               </button>
+              {invalidDeleteRequest && comment.author !== user.username ? (
+                <p className="warning">
+                  You have no access to delete someone elses comments
+                </p>
+              ) : (
+                <p></p>
+              )}
             </div>
           ))
         )}

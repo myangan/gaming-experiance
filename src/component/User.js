@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { UserContext } from "../context/userContext";
 
 export default function User() {
-  const { user, setUser, login } = useContext(UserContext);
+  const { user, setUser, login, users } = useContext(UserContext);
   const [input, setInput] = useState("");
   const [err, setErr] = useState();
   const [logged, setLogged] = useState(true);
@@ -24,6 +24,17 @@ export default function User() {
   if (!logged || err || !Object.keys(setUser) || !user.name) {
     return (
       <div className="User">
+        <form action="/">
+          <label for="user">Users</label>
+          <select id="user" name="username">
+            {users.map((x) => (
+              <option value={x.username} key={x.username}>
+                {x.username}
+              </option>
+            ))}
+          </select>
+        </form>
+
         <input
           value={input}
           onChange={(e) => {
@@ -38,7 +49,9 @@ export default function User() {
           sign in
         </button>
         {err ? <p>user does not exist </p> : <p></p>}
-        <Link to="/users/signup">Sign-up</Link>
+        <Link to="/users/signup" className="signUp">
+          Sign-up
+        </Link>
       </div>
     );
   } else {
@@ -49,8 +62,9 @@ export default function User() {
           alt="userAvatar"
           className="UserAvatar"
         />
-        <p className="Name">{user.name}</p>
-        <p className="userName">{user.username}</p>
+        <p className="Name">
+          {user.name} {user.username}
+        </p>
         <button
           className="SignOut"
           onClick={(event) => {
