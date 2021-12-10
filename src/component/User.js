@@ -8,7 +8,7 @@ export default function User() {
   const [err, setErr] = useState();
   const [logged, setLogged] = useState(true);
 
-  function handleSubmit(e) {
+  function handleSignIn(e) {
     setErr("");
     setLogged(true);
     e.preventDefault();
@@ -20,49 +20,39 @@ export default function User() {
     setErr("");
     setLogged(false);
   }
-
   if (!logged || err || !Object.keys(setUser) || !user.name) {
     return (
       <div className="User">
         <form action="/">
-          <label for="user">Users</label>
-          <select
-            id="user"
-            name="username"
-            onChange={(e) => setInput(e.target.value)}
-          >
-            {users.map((x) => (
-              <option value={x.username} key={x.username}>
-                {x.username}
+          <label for="username">
+            <input
+              list="users-choice"
+              name="username"
+              id="username"
+              onChange={(e) => setInput(e.target.value)}
+            />
+          </label>
+          <datalist id="users-choice">
+            {users.map((user) => (
+              <option value={user.username} key={user.username}>
+                {user.username}
               </option>
             ))}
-          </select>
+          </datalist>
           <button
             onClick={(event) => {
-              handleSubmit(event);
+              handleSignIn(event);
             }}
           >
             sign in
           </button>
         </form>
-
-        <input
-          value={input}
-          onChange={(e) => {
-            setInput(e.target.value);
-          }}
-        ></input>
-        <button
-          onClick={(event) => {
-            handleSubmit(event);
-          }}
-        >
-          sign in
-        </button>
         {err ? <p>user does not exist </p> : <p></p>}
-        <Link to="/users/signup" className="signUp">
-          Sign-up
-        </Link>
+        <button className="signUp">
+          <Link to="/users/signup" className="signUp">
+            Sign Up
+          </Link>
+        </button>
       </div>
     );
   } else {

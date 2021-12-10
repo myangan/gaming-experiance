@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getCategories } from "../utils/utils";
 import User from "./User";
+import "../Style/NavigatorBar.css";
 export default function NavBar() {
   const [categories, setCategories] = useState([]);
   useEffect(
@@ -14,7 +15,7 @@ export default function NavBar() {
         <Link to="/">Home</Link>
       </li>
       <li className="dropdown">
-        <Link to="javascript:void(0)" class="dropbtn">
+        <Link to="/" class="dropDown">
           Categories
         </Link>
         <div className="dropdown-content">
@@ -23,7 +24,7 @@ export default function NavBar() {
               <Link
                 key={category.slug}
                 to={`/reviews?category=${category.slug}`}
-                className="Links"
+                className="links"
               >
                 {category.slug}
               </Link>

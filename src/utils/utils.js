@@ -10,7 +10,6 @@ export const getCategories = () => {
 
 export const getReviews = ({ categories, reviews_id }) => {
   let path = "/reviews";
-
   if (categories) path += `?category=${categories}`;
   if (reviews_id) path += `/${reviews_id}`;
   return url.get(path).then((res) => res.data);

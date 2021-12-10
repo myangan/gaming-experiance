@@ -1,0 +1,101 @@
+.NavArea {
+  background-color: rgb(109, 172, 109);
+  height: 50px;
+}
+
+.userNames {
+  background-color: inherit;
+}
+
+.User {
+  grid-area: NavUser;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: flex-end;
+}
+.UserAvatar {
+  height: auto;
+  width: auto;
+  max-height: 70px;
+  max-width: 200px;
+  border-radius: 15%;
+}
+
+.SignOut {
+  margin-top: 10%;
+  border-radius: 15px;
+  background: #b0dab9;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  content: icon;
+  overflow: hidden;
+  background-color: rgb(84, 82, 82);
+}
+
+li {
+  float: left;
+}
+
+li a,
+.dropDown {
+  display: inline-block;
+  color: rgb(55, 50, 50);
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover,
+.dropdown:hover .dropDown {
+  background-color: inherit;
+}
+
+li.dropdown {
+  display: inline-block;
+}
+
+.dropdown-content {
+  background-color: inherit;
+  display: none;
+  position: absolute;
+  background-color: inherit;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  border-radius: 10px;
+}
+
+.dropdown-content a {
+  color: inherit;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {
+  background-color: yellowgreen;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.UserSpace {
+  float: right;
+}
+
+.signUp {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.links {
+  background-color: inherit;
+}
