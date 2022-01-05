@@ -5,6 +5,8 @@
   background: -webkit-linear-gradient(to bottom, #b0dab9, #dad299);
   background: linear-gradient(to bottom, #b0dab9, #dad299);
   display: grid;
+  align-items: center;
+  justify-content: center;
   grid-template-columns: 100%;
   grid-template-rows: min-content min-content auto;
   grid-template-areas:
@@ -116,7 +118,4 @@
 }
 .CommentBoxArea fieldset {
   border-radius: inherit;
-}
-.Name {
-  color: #b0dab9;
 }

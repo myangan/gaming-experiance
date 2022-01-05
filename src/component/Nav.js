@@ -11,9 +11,11 @@ export default function NavBar() {
   );
   return (
     <ul className="NavArea">
-      <li>
-        <Link to="/">Home</Link>
-      </li>
+      <div className="navBarHome">
+        <li>
+          <Link to="/">Home</Link>
+        </li>
+      </div>
       <li className="dropdown">
         <Link to="/" class="dropDown">
           Categories

@@ -23,9 +23,10 @@ export default function User() {
   if (!logged || err || !Object.keys(setUser) || !user.name) {
     return (
       <div className="User">
-        <form action="/">
-          <label for="username">
+        <form action="/" className="Form">
+          <label className="usernameLabel" for="username">
             <input
+              className="usernameInput"
               list="users-choice"
               name="username"
               id="username"
@@ -40,6 +41,7 @@ export default function User() {
             ))}
           </datalist>
           <button
+            className="SignIn"
             onClick={(event) => {
               handleSignIn(event);
             }}
